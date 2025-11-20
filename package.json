@@ -1,6 +1,6 @@
 {
     "name": "hugo-maintenance-bot",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "Automated maintenance bot for Hugo websites (module updates, screenshots, PRs)",
     "main": "src/index.js",
     "bin": {
