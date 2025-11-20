@@ -52,7 +52,21 @@ screenshots:
 
 ## Environment Variables
 
+### Github
+
 - `GH_TOKEN`: GitHub Personal Access Token (required for PR creation and cross-repo operations)
+
+### Notifications
+
+- `SLACK_WEBHOOK_URL`: (Optional) Webhook URL for Slack notifications
+- `TWILIO_ACCOUNT_SID`: (Optional) Twilio Account SID for WhatsApp
+- `TWILIO_AUTH_TOKEN`: (Optional) Twilio Auth Token for WhatsApp
+- `TWILIO_WHATSAPP_FROM`: (Optional) Twilio WhatsApp sender (e.g., `whatsapp:+14155238886`)
+- `TWILIO_WHATSAPP_TO`: (Optional) Recipient WhatsApp number (e.g., `whatsapp:+1234567890`)
+- `EMAIL_USER`: (Optional) Gmail address for sending emails
+- `GOOGLE_CLIENT_ID`: (Optional) OAuth2 Client ID
+- `GOOGLE_CLIENT_SECRET`: (Optional) OAuth2 Client Secret
+- `GOOGLE_REFRESH_TOKEN`: (Optional) OAuth2 Refresh Token
 
 ## GitHub Actions
 
