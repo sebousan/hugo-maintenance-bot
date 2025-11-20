@@ -53,3 +53,13 @@ screenshots:
 ## Environment Variables
 
 - `GH_TOKEN`: GitHub Personal Access Token (required for PR creation and cross-repo operations)
+
+## GitHub Actions
+
+You can automate the maintenance using GitHub Actions. An example workflow is provided in [examples/github-action.yml](examples/github-action.yml).
+
+This workflow:
+1. Runs on a schedule (e.g., every 2 months)
+2. Sets up Node.js and Hugo
+3. Installs dependencies and Playwright browsers
+4. Runs the maintenance script for your websites

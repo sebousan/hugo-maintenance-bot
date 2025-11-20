@@ -1,0 +1,36 @@
+name: Maintenance websites
+
+on:
+  schedule:
+    - cron: '0 3 1 */2 *' # Every 2 months at 03:00 UTC
+  workflow_dispatch:
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run maintenance
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: yarn start websites
