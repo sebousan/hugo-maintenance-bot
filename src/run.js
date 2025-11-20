@@ -1,0 +1,102 @@
+// scripts/run.js
+import { cleanupTempDir } from "./steps/cleanupTempDir.js";
+import { commitMaintenance } from "./steps/commitMaintenance.js";
+import { compareScreenshots } from "./steps/compareScreenshots.js";
+import { createBranch } from "./steps/createBranch.js";
+import { createContent } from "./steps/createContent.js";
+import { createScreenshots } from "./steps/createScreenshots.js";
+import { createPullRequest } from "./steps/createPullRequest.js";
+import { notify } from "./steps/notify.js";
+import { updateModules } from "./steps/updateModules.js";
+import { loadSites } from "./utils/websites.js";
+import { logger } from "./utils/logger.js";
+import dotenv from "dotenv";
+dotenv.config();
+
+export async function main(arg) {
+  const sites = loadSites(arg);
+  const date = new Date().toISOString().split("T")[0];
+
+  if (sites.length === 0) {
+    logger.error(`❌ No sites found. Usage:`);
+    process.exit(1);
+  }
+
+  logger.info(`📦 Processing ${sites.length} site(s)...`);
+
+  for (const site of sites) {
+    logger.info(`Processing site: ${site.name} (${date})`);
+    try {
+      // 1. Update modules
+      logger.info("🔄 Updating Hugo modules...");
+      const { status: statusUpdate, tmpPath, publicPath, hasChanges, updatedModules } = await updateModules(site, date);
+
+      // Kill si erreur ou pas de changement de module
+      if (statusUpdate === "error") {
+        logger.error(`❌ Failed to process ${site.name}. Skipping.`);
+        continue;
+      }
+      if (statusUpdate === "build_error") {
+        logger.error(`❌ Build failed for ${site.name}. Skipping.`);
+        continue;
+      }
+      if (!hasChanges) {
+        logger.info(`⏭️ No changes for ${site.name}. Skipping screenshots.`);
+        logger.info("🔍 Delete temp directory...");
+        await cleanupTempDir(tmpPath, site.name);
+        continue;
+      }
+
+      // 2. Screenshots (before)
+      logger.info("📸 Capturing 'online' screenshots...");
+      await createScreenshots(site, "before", date);
+
+      // 3. Screenshots (after)
+      logger.info("📸 Capturing 'local' screenshots...");
+      await createScreenshots(site, "after", date, publicPath);
+
+      // 4. Compare screenshots
+      logger.info("🔍 Comparing screenshots...");
+      const { status, diffPages } = await compareScreenshots(site, date);
+
+      // 5. Create branch
+      logger.info("🏹 Creating branch...");
+      const { status: statusBranch, branchName } = await createBranch(site, tmpPath, date);
+      if (statusBranch === "error") {
+        await cleanupTempDir(tmpPath, site.name);
+        continue;
+      }
+
+      // 6. Create pull request
+      logger.info("🔗 Creating pull request...");
+      const prUrl = await createPullRequest(site, date, status, diffPages, updatedModules, branchName);
+
+      // 7. Create content
+      logger.info("📝 Creating content...");
+      await createContent(site, date, status, diffPages, updatedModules, prUrl);
+
+      // 8. Commit screenshots and content
+      await commitMaintenance(site.name, date);
+
+      // 9. Clean
+      logger.info("🔍 Delete temp directory...");
+      await cleanupTempDir(tmpPath, site.name);
+
+      // remove notifications
+      continue;
+
+      // 10. Notify
+      // TODO
+
+    } catch (err) {
+      logger.error(`❌ Failed to process site ${site.name}: ${err.message}`);
+    }
+  }
+}
+
+// Get argument from command line
+const arg = process.argv[2] || null;
+main(arg).catch(err => {
+  logger.error(`💥 Fatal error: ${err.message}`);
+  process.exit(1);
+});
