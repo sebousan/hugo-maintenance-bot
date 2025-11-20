@@ -6,7 +6,6 @@ import { createBranch } from "./steps/createBranch.js";
 import { createContent } from "./steps/createContent.js";
 import { createScreenshots } from "./steps/createScreenshots.js";
 import { createPullRequest } from "./steps/createPullRequest.js";
-import { notify } from "./steps/notify.js";
 import { updateModules } from "./steps/updateModules.js";
 import { loadSites } from "./utils/websites.js";
 import { logger } from "./utils/logger.js";
