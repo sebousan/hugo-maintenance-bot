@@ -1,14 +1,15 @@
 {
     "name": "hugo-maintenance-bot",
     "version": "1.0.0",
-    "description": "Automated maintenance bot for Hugo websites (module updates, screenshots, PRs)",
-    "main": "src/index.js",
-    "bin": {
-        "hugo-maintenance": "./bin/cli.js"
+    "repository": "https://github.com/sebousan/hugo-maintenance-bot",
+    "bugs": {
+        "url": "https://github.com/sebousan/hugo-maintenance-bot/issues"
     },
-    "type": "module",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+    "description": "Automated maintenance bot for Hugo websites (module updates, screenshots, PRs)",
+    "author": {
+        "email": "sebousan@gmail.com",
+        "name": "Sébastien Moulène",
+        "url": "https://www.sebastienmoulene.com/"
     },
     "keywords": [
         "hugo",
@@ -18,8 +19,15 @@
         "screenshots",
         "playwright"
     ],
-    "author": "Sébastien Moulène",
     "license": "MIT",
+    "main": "src/index.js",
+    "bin": {
+        "hugo-maintenance": "./bin/cli.js"
+    },
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
     "dependencies": {
         "@octokit/rest": "^20.0.2",
         "chalk": "^5.3.0",

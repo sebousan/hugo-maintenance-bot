@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { main } from "../src/run.js";
+import { main } from "../src/index.js";
 import { logger } from "../src/utils/logger.js";
 
 const arg = process.argv[2] || null;
