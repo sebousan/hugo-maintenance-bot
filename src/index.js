@@ -92,10 +92,3 @@ export async function main(arg) {
     }
   }
 }
-
-// Get argument from command line
-const arg = process.argv[2] || null;
-main(arg).catch(err => {
-  logger.error(`💥 Fatal error: ${err.message}`);
-  process.exit(1);
-});
