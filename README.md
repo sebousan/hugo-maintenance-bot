@@ -53,6 +53,8 @@ screenshots:
 ## Environment Variables
 
 - `GH_TOKEN`: GitHub Personal Access Token (required for PR creation and cross-repo operations)
+- `GIT_USER_EMAIL`: Git user email (required for PR creation)
+- `GIT_USER_NAME`: Git user name (required for PR creation)
 
 ## GitHub Actions
 

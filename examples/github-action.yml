@@ -5,6 +5,10 @@ on:
     - cron: '0 3 1 */2 *' # Every 2 months at 03:00 UTC
   workflow_dispatch:
 
+env:
+  GIT_USER_EMAIL: "bot@domain.com"
+  GIT_USER_NAME: "[Bot] Maintenance"
+
 jobs:
   maintenance:
     runs-on: ubuntu-latest
@@ -33,4 +37,6 @@ jobs:
       - name: Run maintenance
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIT_USER_EMAIL: ${{ env.GIT_USER_EMAIL }}
+          GIT_USER_NAME: ${{ env.GIT_USER_NAME }}
         run: yarn start websites
