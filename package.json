@@ -1,6 +1,6 @@
 {
     "name": "hugo-maintenance-bot",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "repository": "https://github.com/sebousan/hugo-maintenance-bot",
     "bugs": {
         "url": "https://github.com/sebousan/hugo-maintenance-bot/issues"
