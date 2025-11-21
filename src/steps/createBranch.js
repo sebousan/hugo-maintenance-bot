@@ -4,6 +4,13 @@ import { logger } from '../utils/logger.js';
 import { execSync } from 'child_process';
 import { configureGit } from '../utils/git.js';
 
+/**
+ * Creates a new branch with module updates and pushes to GitHub
+ * @param {Object} site - Site configuration object
+ * @param {string} tmpPath - Temporary directory path
+ * @param {string} date - Date in YYYY-MM-DD format
+ * @returns {Promise<Object>} Object containing status and branchName
+ */
 export async function createBranch(site, tmpPath, date) {
   if (!site?.repository?.repo) {
     logger.error('❌ Invalid site configuration: missing repository.repo');

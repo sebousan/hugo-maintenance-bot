@@ -1,4 +1,4 @@
-// scripts/utils/site.js
+// utils/websites.js
 import fs from "fs";
 import path from "path";
 import YAML from "yaml";
@@ -39,7 +39,7 @@ function loadSitesFromDir(dir) {
  */
 function loadAllSites() {
   logger.info(`🔍 Loading all sites from ${DATAS_DIR}...`);
-  
+
   if (!fs.existsSync(DATAS_DIR)) {
     logger.error(`Data directory not found: ${DATAS_DIR}`);
     return [];
@@ -78,7 +78,7 @@ function loadSitesFromFolder(folderName) {
  */
 function loadSiteByName(siteName) {
   logger.info(`🔍 Searching for site: ${siteName}...`);
-  
+
   if (!fs.existsSync(DATAS_DIR)) {
     logger.error(`Data directory not found: ${DATAS_DIR}`);
     return null;

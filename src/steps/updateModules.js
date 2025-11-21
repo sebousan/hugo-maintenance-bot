@@ -1,4 +1,4 @@
-// scripts/steps/updateModules.js
+// steps/updateModules.js
 import { execSync } from 'child_process';
 import { logger } from '../utils/logger.js';
 import { checkHugoModulesChanges } from '../utils/git.js'
@@ -38,6 +38,12 @@ async function yarnWithRetry(tmpPath, maxRetries = 3, delayMs = 5000) {
   }
 }
 
+/**
+ * Updates Hugo modules for a site and builds the static site
+ * @param {Object} site - Site configuration object
+ * @param {string} date - Date in YYYY-MM-DD format
+ * @returns {Promise<Object>} Object containing status, tmpPath, publicPath, hasChanges, and updatedModules
+ */
 export async function updateModules(site, date) {
   const tmpPath = path.join(os.tmpdir(), `${site.name}-${Date.now()}`);
   const token = process.env.GH_TOKEN;

@@ -1,4 +1,4 @@
-// scripts/utils/file.js
+// utils/file.js
 import fs from "fs";
 import path from "path";
 import YAML from "yaml";

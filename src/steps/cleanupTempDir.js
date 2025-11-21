@@ -1,4 +1,4 @@
-// scripts/steps/cleanupTempDir.js
+// steps/cleanupTempDir.js
 import { logger } from "../utils/logger.js";
 import fs from 'fs';
 

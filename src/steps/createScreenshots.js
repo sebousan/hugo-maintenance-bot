@@ -11,6 +11,14 @@ const resolutions = {
   laptop: { width: 1366, height: 768 }
 };
 
+/**
+ * Creates screenshots of website pages at different resolutions
+ * @param {Object} site - Site configuration object
+ * @param {string} type - Screenshot type ('before' or 'after')
+ * @param {string} date - Date in YYYY-MM-DD format
+ * @param {string|null} publicPath - Path to public directory for local server (null for online)
+ * @returns {Promise<void>}
+ */
 export async function createScreenshots(site, type, date, publicPath = null) {
   const browser = await chromium.launch({ headless: true });
   let serverInstance = null;

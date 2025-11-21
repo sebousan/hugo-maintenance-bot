@@ -12,6 +12,11 @@ import { logger } from "./utils/logger.js";
 import dotenv from "dotenv";
 dotenv.config();
 
+/**
+ * Main function to process Hugo maintenance for sites
+ * @param {string|null} arg - Command argument (null = all, 'folder' = by folder, 'site' = by name)
+ * @returns {Promise<void>}
+ */
 export async function main(arg) {
   const sites = loadSites(arg);
   const date = new Date().toISOString().split("T")[0];

@@ -1,6 +1,10 @@
-// scripts/utils/logger.js
+// utils/logger.js
 import chalk from "chalk";
 
+/**
+ * Returns current timestamp in ISO format without milliseconds
+ * @returns {string} Formatted timestamp string
+ */
 function timestamp() {
   return new Date().toISOString().replace("T", " ").split(".")[0];
 }

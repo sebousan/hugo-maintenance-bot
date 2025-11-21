@@ -3,6 +3,16 @@ import { writeFile } from "../utils/file.js";
 import { logger } from "../utils/logger.js";
 import { generateFullReport } from "../utils/markownGenerator.js";
 
+/**
+ * Creates content files with maintenance report
+ * @param {Object} site - Site configuration object
+ * @param {string} date - Date in YYYY-MM-DD format
+ * @param {string} status - Status of the update (OK/Fail)
+ * @param {Array<string>} diffPages - Array of pages with differences
+ * @param {Array<Object>} updatedModules - Array of updated module objects
+ * @param {string} prUrl - URL of the pull request
+ * @returns {Promise<Object>} Object containing status and content paths
+ */
 export async function createContent(site, date, status, diffPages, updatedModules, prUrl) {
   const contentDir = `content/websites/${site.name}`;
 

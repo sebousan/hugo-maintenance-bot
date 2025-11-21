@@ -4,6 +4,11 @@ import fs from 'fs';
 import path from 'path';
 import { logger } from '../utils/logger.js';
 
+/**
+ * Creates a static HTTP server for serving files
+ * @param {string} basePath - Base directory path to serve files from
+ * @returns {Object} Object with start and stop methods for server control
+ */
 export function createStaticServer(basePath) {
   const contentTypeMap = {
     html: 'text/html',

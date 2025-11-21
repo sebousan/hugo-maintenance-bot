@@ -1,3 +1,4 @@
+// steps/compareScreenshots.js
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
 import fs from "fs";
@@ -9,6 +10,12 @@ const CONFIG = {
   PIXEL_THRESHOLD: 0.1,
 };
 
+/**
+ * Compares before and after screenshots to detect visual differences
+ * @param {Object} site - Site configuration object
+ * @param {string} date - Date in YYYY-MM-DD format
+ * @returns {Promise<Object>} Object containing status, diffPages, timestamp, and details
+ */
 export async function compareScreenshots(site, date) {
   const diffPages = new Set();
   let status = "OK";

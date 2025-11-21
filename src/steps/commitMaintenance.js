@@ -1,4 +1,4 @@
-// scripts/steps/commitMaintenance.js
+// steps/commitMaintenance.js
 import { execSync } from "child_process";
 import { logger } from "../utils/logger.js";
 
