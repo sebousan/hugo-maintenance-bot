@@ -1,4 +1,4 @@
-// scripts/steps/createBranch.js
+// steps/createBranch.js
 import { getOctokit } from '../utils/github.js';
 import { logger } from '../utils/logger.js';
 import { execSync } from 'child_process';

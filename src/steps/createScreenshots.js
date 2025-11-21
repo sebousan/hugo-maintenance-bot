@@ -1,4 +1,4 @@
-// scripts/steps/createScreenshots.js
+// steps/createScreenshots.js
 import { chromium } from 'playwright';
 import { logger } from '../utils/logger.js';
 import fs from 'fs';

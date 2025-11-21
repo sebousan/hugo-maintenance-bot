@@ -1,4 +1,4 @@
-// scripts/steps/mergePullRequest.js
+// steps/mergePullRequest.js
 import { getOctokit } from '../utils/github.js';
 import { logger } from '../utils/logger.js';
 

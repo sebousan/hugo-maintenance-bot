@@ -1,4 +1,4 @@
-// scripts/run.js
+// index.js
 import { cleanupTempDir } from "./steps/cleanupTempDir.js";
 import { commitMaintenance } from "./steps/commitMaintenance.js";
 import { compareScreenshots } from "./steps/compareScreenshots.js";
