@@ -5,6 +5,8 @@ An automated maintenance bot for Hugo websites. It handles:
 - Taking screenshots (before/after)
 - Comparing screenshots
 - Creating Pull Requests with visual diffs
+- Merge automatically if there is no diffs
+- Creating content markdown page (for your maintenance report website)
 
 ## Installation
 
