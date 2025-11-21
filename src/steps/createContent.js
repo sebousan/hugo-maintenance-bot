@@ -7,18 +7,18 @@ export async function createContent(site, date, status, diffPages, updatedModule
   const contentDir = `content/websites/${site.name}`;
 
   try {
-    // Crée la page d'index du site si elle n'existe pas
+    // Create the site index page if it doesn't exist
     const indexContent = `---\ntitle: ${site.title}\n---\n`;
     await writeFile(`${contentDir}/_index.md`, indexContent);
 
-    // Contenu du rapport
+    // Report content
     const utcDate = new Date().toISOString();
-    const dateFormatted = new Date(date).toLocaleDateString('fr-FR');
+    const dateFormatted = new Date(date).toLocaleDateString('en-US');
     const pages = site.website.pages;
     const siteName = site.name;
 
     let postContent = `---
-title: Mise à jour des modules (${dateFormatted})
+title: Module update (${dateFormatted})
 date: ${utcDate}
 status: ${status}
 ---\n`
@@ -30,9 +30,10 @@ status: ${status}
       updatedModules,
       prUrl,
       pages,
-      siteName});
+      siteName
+    });
 
-    // Écrit le fichier final
+    // Write the final file
     const filePath = `${contentDir}/${date}.md`;
     await writeFile(filePath, postContent);
 

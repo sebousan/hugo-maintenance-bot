@@ -5,7 +5,7 @@ import YAML from "yaml";
 import { logger } from "./logger.js";
 
 /**
- * Lit un fichier YAML et le parse en objet JS
+ * Reads a YAML file and parses it into a JS object
  */
 export function readYAML(filePath) {
   try {
@@ -18,7 +18,7 @@ export function readYAML(filePath) {
 }
 
 /**
- * Écrit un objet JS en YAML
+ * Writes a JS object to YAML
  */
 export function writeYAML(filePath, data) {
   try {
@@ -30,7 +30,7 @@ export function writeYAML(filePath, data) {
 }
 
 /**
- * Écrit un fichier texte/JSON
+ * Writes a text/JSON file
  */
 export function writeFile(filePath, content) {
   try {
@@ -43,7 +43,7 @@ export function writeFile(filePath, content) {
 }
 
 /**
- * Vérifie si un fichier existe
+ * Checks if a file exists
  */
 export function fileExists(filePath) {
   return fs.existsSync(filePath);

@@ -1,12 +1,12 @@
 // utils/markdownGenerator.js
 
 /**
- * Génère la section de date
- * @param {string|Date} date - Date à formater
- * @param {string} locale - Locale pour le formatage
- * @returns {string} Section Markdown formatée
+ * Generates the date section
+ * @param {string|Date} date - Date to format
+ * @param {string} locale - Locale for formatting
+ * @returns {string} Formatted Markdown section
  */
-export function generateDateSection(date, locale = 'fr-FR') {
+export function generateDateSection(date, locale = 'en-US') {
   const dateObj = new Date(date);
   const dateFormatted = dateObj.toLocaleDateString(locale, {
     weekday: 'long',
@@ -18,17 +18,17 @@ export function generateDateSection(date, locale = 'fr-FR') {
 }
 
 /**
- * Génère la section de statut
- * @param {string} status - Statut
- * @param {Array<string>} diffPages - Pages problématiques
- * @returns {string} Section Markdown formatée
+ * Generates the status section
+ * @param {string} status - Status
+ * @param {Array<string>} diffPages - Problematic pages
+ * @returns {string} Formatted Markdown section
  */
 export function generateStatusSection(status, diffPages = [], date, siteName) {
-  let section = "## Statut\n";
+  let section = "## Status\n";
   if (status === "Fail") {
-    section += "❌ Échec\n";
+    section += "❌ Failed\n";
     if (diffPages.length > 0) {
-      section += "## Pages problématiques\n";
+      section += "## Problematic pages\n";
       diffPages.forEach((page) => {
         let pageFileName = page.replace(/\//g, "") || "home";
         let diffPath = getScreenshotPath("compare", pageFileName, "mobile", date, siteName);
@@ -37,33 +37,33 @@ export function generateStatusSection(status, diffPages = [], date, siteName) {
       });
     }
   } else {
-    section += "✅ Succès\n";
+    section += "✅ Success\n";
   }
   return section;
 }
 
 /**
- * Génère la section des modules mis à jour
- * @param {Array} updatedModules - Modules avec leurs diffs
- * @returns {string} Section Markdown formatée
+ * Generates the updated modules section
+ * @param {Array} updatedModules - Modules with their diffs
+ * @returns {string} Formatted Markdown section
  */
 export function generateModulesSection(updatedModules = []) {
-  let section = "## Modules mis à jour\n";
+  let section = "## Updated modules\n";
   if (updatedModules.length > 0) {
     updatedModules.forEach(module => {
       section += `### ${module.file}\n\n`;
       section += "```diff\n" + module.changes.join('\n') + "\n```\n\n";
     });
   } else {
-    section += "Aucun module mis à jour.\n";
+    section += "No modules updated.\n";
   }
   return section;
 }
 
 /**
- * Génère la section de la Pull Request
- * @param {string} prUrl - URL de la PR or false
- * @returns {string} Section Markdown formatée
+ * Generates the Pull Request section
+ * @param {string} prUrl - PR URL or false
+ * @returns {string} Formatted Markdown section
  */
 export function generatePrSection(prUrl) {
   let section = "";
@@ -77,11 +77,11 @@ export function generatePrSection(prUrl) {
 }
 
 /**
- * Génère une section pour une page spécifique avec ses captures
- * @param {string} page - Chemin de la page
+ * Generates a section for a specific page with its screenshots
+ * @param {string} page - Page path
  * @param {string} date - Date
- * @param {string} siteName - Nom du site
- * @returns {string} Section Markdown
+ * @param {string} siteName - Site name
+ * @returns {string} Markdown section
  */
 export function generatePageScreenshotsSection(page, date, siteName) {
   const pageFileName = page.replace(/\//g, "") || "home";
@@ -96,12 +96,12 @@ export function generatePageScreenshotsSection(page, date, siteName) {
 }
 
 /**
- * Génère une ligne de tableau pour une résolution
- * @param {string} pageFileName - Nom du fichier de la page
- * @param {string} device - Résolution
+ * Generates a table row for a resolution
+ * @param {string} pageFileName - Page file name
+ * @param {string} device - Resolution
  * @param {string} date - Date
- * @param {string} siteName - Nom du site
- * @returns {string} Ligne de tableau Markdown
+ * @param {string} siteName - Site name
+ * @returns {string} Markdown table row
  */
 export function generateScreenshotRow(pageFileName, device, date, siteName) {
   const beforePath = getScreenshotPath("before", pageFileName, device, date, siteName);
@@ -110,31 +110,31 @@ export function generateScreenshotRow(pageFileName, device, date, siteName) {
   return `
 ### ${device.charAt(0).toUpperCase() + device.slice(1)}
 
-| Avant | Après |
-|-------|-------|
-| ![Avant](${beforePath} "Avant - ${device}") | ![Après](${afterPath} "Après - ${device}") |
+| Before | After |
+|--------|-------|
+| ![Before](${beforePath} "Before - ${device}") | ![After](${afterPath} "After - ${device}") |
 `;
 }
 
 /**
- * Génère le chemin d'une image de capture
- * @param {string} type - Type de capture
- * @param {string} pageFileName - Nom du fichier
- * @param {string} device - Résolution
+ * Generates the path for a screenshot image
+ * @param {string} type - Screenshot type
+ * @param {string} pageFileName - File name
+ * @param {string} device - Resolution
  * @param {string} date - Date
- * @param {string} siteName - Nom du site
- * @returns {string} Chemin complet
+ * @param {string} siteName - Site name
+ * @returns {string} Full path
  */
 export function getScreenshotPath(type, pageFileName, device, date, siteName) {
   return `/images/screenshots/${siteName}/${date}/${type}/${pageFileName}_${device}.png`;
 }
 
 /**
- * Génère la section des captures pour toutes les pages
+ * Generates the screenshots section for all pages
  * @param {Array<string>} pages - Pages
  * @param {string} date - Date
- * @param {string} siteName - Nom du site
- * @returns {string} Section Markdown
+ * @param {string} siteName - Site name
+ * @returns {string} Markdown section
  */
 export function generateScreenshotsSection(pages, date, siteName) {
   let section = "";
@@ -146,9 +146,9 @@ export function generateScreenshotsSection(pages, date, siteName) {
 
 
 /**
- * Génère le rapport complet
- * @param {Object} params - Paramètres
- * @returns {string} Contenu Markdown complet
+ * Generates the full report
+ * @param {Object} params - Parameters
+ * @returns {string} Full Markdown content
  */
 
 export function generateFullReport({
@@ -167,10 +167,10 @@ ${generateStatusSection(status, diffPages, date, siteName)}
 ${generateModulesSection(updatedModules)}
 `;
 
-if (prUrl) {
-  content += generatePrSection(prUrl);
-  content += generateScreenshotsSection(pages, date, siteName);
-}
+  if (prUrl) {
+    content += generatePrSection(prUrl);
+    content += generateScreenshotsSection(pages, date, siteName);
+  }
 
-return content;
+  return content;
 }

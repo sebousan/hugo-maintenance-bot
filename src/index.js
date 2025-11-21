@@ -30,7 +30,7 @@ export async function main(arg) {
       logger.info("🔄 Updating Hugo modules...");
       const { status: statusUpdate, tmpPath, publicPath, hasChanges, updatedModules } = await updateModules(site, date);
 
-      // Kill si erreur ou pas de changement de module
+      // Stop if error or no module changes
       if (statusUpdate === "error") {
         logger.error(`❌ Failed to process ${site.name}. Skipping.`);
         continue;

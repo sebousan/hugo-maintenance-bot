@@ -36,11 +36,11 @@ export async function compareScreenshots(site, date) {
           continue;
         }
 
-        // Charge les images
+        // Load images
         const beforeImg = PNG.sync.read(fs.readFileSync(beforePath));
         const afterImg = PNG.sync.read(fs.readFileSync(afterPath));
 
-        // Vérifie que les tailles sont identiques
+        // Check that sizes are identical
         if (beforeImg.width !== afterImg.width || beforeImg.height !== afterImg.height) {
           logger.warn(`⚠️ Different sizes for ${page} (${device}): ${beforeImg.width}x${beforeImg.height} vs ${afterImg.width}x${afterImg.height}`);
           continue;
@@ -49,7 +49,7 @@ export async function compareScreenshots(site, date) {
         const { width, height } = beforeImg;
         const totalPixels = width * height;
 
-        // Compare les pixels
+        // Compare pixels
         const diff = new PNG({ width, height });
         const numDiffPixels = pixelmatch(
           beforeImg.data,
@@ -73,7 +73,7 @@ export async function compareScreenshots(site, date) {
           status = "Fail";
           diffPages.add(page);
 
-          // Enregistre l'image de différence
+          // Save the difference image
           const diffPath = path.join(compareDir, `${pageFileName}_${device}_diff.png`);
           fs.writeFileSync(diffPath, PNG.sync.write(diff));
           logger.info(`🖼️ Diff saved (${diffPercent.toFixed(2)}% different): ${diffPath}`);

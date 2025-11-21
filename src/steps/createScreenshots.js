@@ -26,7 +26,7 @@ export async function createScreenshots(site, type, date, publicPath = null) {
       serverInstance = await server.start(port);
     }
 
-    // Boucle pour chaque page et chaque device
+    // Loop for each page and each device
     for (const pageUrl of site.website.pages) {
       for (const [device, resolution] of Object.entries(resolutions)) {
         if (site.screenshots.includes(device)) {
@@ -35,7 +35,7 @@ export async function createScreenshots(site, type, date, publicPath = null) {
             const page = await browser.newPage();
             await page.setViewportSize(resolution);
 
-            // Désactive animations/hover
+            // Disable animations/hover
             await page.addStyleTag({
               content: `
                 [data-anim], * {
@@ -50,7 +50,7 @@ export async function createScreenshots(site, type, date, publicPath = null) {
 
             await page.goto(fullUrl, { waitUntil: 'networkidle', timeout: 60000 });
 
-            // Scroll et retour en haut
+            // Scroll and return to top
             await page.evaluate(async () => {
               document.querySelectorAll('img[loading="lazy"]').forEach(img => {
                 img.setAttribute('loading', 'eager');
@@ -69,7 +69,7 @@ export async function createScreenshots(site, type, date, publicPath = null) {
 
             await page.waitForTimeout(1000);
 
-            // Capture d'écran
+            // Screenshot
             const basePath = path.join('static', 'images', 'screenshots', site.name, date, type);
             if (!fs.existsSync(basePath)) fs.mkdirSync(basePath, { recursive: true });
             const pageFileName = pageUrl.replace(/\//g, '') || 'home';
@@ -84,7 +84,7 @@ export async function createScreenshots(site, type, date, publicPath = null) {
       }
     }
 
-  } finally { 
+  } finally {
     if (serverInstance) {
       await server.stop(serverInstance);
     }

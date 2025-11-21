@@ -3,30 +3,30 @@ import { execSync } from "child_process";
 import { logger } from "../utils/logger.js";
 
 /**
- * Commit et push les screenshots et le contenu vers le repo maintenance.uncinq.dev
- * @param {string} siteName - Nom du site (ex: "miriamlasserre")
- * @param {string} date - Date au format YYYY-MM-DD
+ * Commit and push screenshots and content to the maintenance repo
+ * @param {string} siteName - Site name (e.g., "miriamlasserre")
+ * @param {string} date - Date in YYYY-MM-DD format
  */
 export async function commitMaintenance(siteName, date) {
-  const repoDir = process.cwd(); // Chemin racine du repo maintenance.uncinq.dev
+  const repoDir = process.cwd(); // Root path of the maintenance repo
 
   try {
     logger.info(`📁 Committing screenshots and content for ${siteName} (${date})...`);
 
-    // Ajoute les screenshots et le contenu à git
+    // Add screenshots and content to git
     execSync(`cd ${repoDir} && git add -A`);
 
-    // Vérifie s'il y a des changements
+    // Check if there are changes
     const hasChanges = execSync(`cd ${repoDir} && git status --porcelain`).toString().trim();
     if (!hasChanges) {
       logger.info(`No changes to commit for ${siteName}. Skipping.`);
       return;
     }
 
-    // Commit avec un message clair
+    // Commit with a clear message
     execSync(`cd ${repoDir} && git commit -m "chore: add screenshots and content for ${siteName} (${date})"`);
 
-    // Push vers la branche main
+    // Push to main branch
     execSync(`cd ${repoDir} && git push origin main`);
 
     logger.success(`✅ Screenshots and content committed and pushed for ${siteName} (${date})`);

@@ -4,10 +4,10 @@ import { logger } from './logger.js';
 import fs from 'fs';
 
 /**
- * Récupère les différences détaillées pour un fichier
- * @param {string} filePath - Chemin vers le dépôt
- * @param {string} fileName - Nom du fichier à comparer
- * @returns {Array<string>} - Lignes de diff formatées
+ * Retrieves detailed differences for a file
+ * @param {string} filePath - Path to the repository
+ * @param {string} fileName - File name to compare
+ * @returns {Array<string>} - Formatted diff lines
  */
 export function getFileDiffs(filePath, fileName) {
   try {
@@ -16,15 +16,15 @@ export function getFileDiffs(filePath, fileName) {
       .trim()
       .split('\n')
       .filter(line => {
-        // Garde les lignes de diff et le contexte
+        // Keep diff lines and context
         return line.startsWith('+') ||
           line.startsWith('-') ||
           line.startsWith('@') ||
           line.trim() === '' ||
-          line.startsWith('\\'); // Pour les continuations de ligne
+          line.startsWith('\\'); // For line continuations
       })
       .filter(line => {
-        // Exclut les headers de fichier
+        // Exclude file headers
         return !line.startsWith('+++') && !line.startsWith('---');
       });
   } catch (err) {
@@ -34,9 +34,9 @@ export function getFileDiffs(filePath, fileName) {
 }
 
 /**
- * Vérifie les changements dans les fichiers go.mod/go.sum
- * @param {string} filePath - Chemin vers le dépôt
- * @returns {Array<{file: string, changes: string[]}>} - Liste des fichiers modifiés avec leurs diffs
+ * Checks changes in go.mod/go.sum files
+ * @param {string} filePath - Path to the repository
+ * @returns {Array<{file: string, changes: string[]}>} - List of modified files with their diffs
  */
 export function checkHugoModulesChanges(filePath) {
   const filesToCheck = ['go.mod', 'go.sum'];

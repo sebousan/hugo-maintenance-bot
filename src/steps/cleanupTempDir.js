@@ -3,10 +3,10 @@ import { logger } from "../utils/logger.js";
 import fs from 'fs';
 
 /**
- * Nettoie un dossier temporaire
- * @param {string} tmpPath - Chemin du dossier à supprimer
- * @param {string} [siteName] - Nom du site (pour les logs)
- * @returns {Promise<boolean>} - True si la suppression a réussi
+ * Cleans up a temporary directory
+ * @param {string} tmpPath - Path to the directory to delete
+ * @param {string} [siteName] - Site name (for logs)
+ * @returns {Promise<boolean>} - True if deletion succeeded
  */
 export async function cleanupTempDir(tmpPath, siteName = '') {
   if (!tmpPath) {
@@ -16,7 +16,7 @@ export async function cleanupTempDir(tmpPath, siteName = '') {
 
   try {
     if (fs.existsSync(tmpPath)) {
-      // Supprime récursivement le dossier et son contenu
+      // Recursively delete the directory and its contents
       fs.rmSync(tmpPath, { recursive: true, force: true });
       logger.info(`🧹 Cleaned up temp directory for ${siteName || 'site'}: ${tmpPath}`);
       return true;
