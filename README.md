@@ -1,6 +1,10 @@
+<img width="1280" height="640" alt="Hugo Maintenance Bot" src="https://github.com/user-attachments/assets/869bcfde-5005-4347-82cd-ace81bf2700b" />
+
 # Hugo Maintenance Bot
 
-An automated maintenance bot for Hugo websites. It handles:
+An automated maintenance bot for Hugo websites. 
+
+It handles:
 - Updating Hugo modules
 - Taking screenshots (before/after)
 - Comparing screenshots
