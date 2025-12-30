@@ -2,9 +2,10 @@
 
 # Hugo Maintenance Bot
 
-An automated maintenance bot for Hugo websites. 
+An automated maintenance bot for Hugo websites.
 
 It handles:
+
 - Updating Hugo modules
 - Taking screenshots (before/after)
 - Comparing screenshots
@@ -38,6 +39,7 @@ npx hugo-maintenance website
 The bot expects a `datas/` directory in the current working directory containing site configurations in YAML format.
 
 Example site config (`datas/folder/website.yaml`):
+
 ```yaml
 title: My Site
 name: mysite
@@ -67,6 +69,7 @@ screenshots:
 You can automate the maintenance using GitHub Actions. An example workflow is provided in [examples/github-action.yml](examples/github-action.yml).
 
 This workflow:
+
 1. Runs on a schedule (e.g., every 2 months)
 2. Sets up Node.js and Hugo
 3. Installs dependencies and Playwright browsers
