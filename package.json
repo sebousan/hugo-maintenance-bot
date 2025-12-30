@@ -1,7 +1,13 @@
 {
     "name": "@sebousan/hugo-maintenance-bot",
     "version": "1.0.3",
-    "repository": "https://github.com/sebousan/hugo-maintenance-bot",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sebousan/hugo-maintenance-bot.git"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
     "bugs": {
         "url": "https://github.com/sebousan/hugo-maintenance-bot/issues"
     },
