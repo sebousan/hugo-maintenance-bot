@@ -2,6 +2,9 @@
 
 # Hugo Maintenance Bot
 
+[![npm version](https://badge.fury.io/js/@sebousan%2Fhugo-maintenance-bot.svg)](https://www.npmjs.com/package/@sebousan/hugo-maintenance-bot)
+
+
 An automated maintenance bot for Hugo websites.
 
 It handles:
