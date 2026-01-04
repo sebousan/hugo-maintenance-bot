@@ -26,6 +26,9 @@ export async function commitMaintenance(siteName, date) {
     // Commit with a clear message
     execSync(`cd ${repoDir} && git commit -m "chore: add screenshots and content for ${siteName} (${date})"`);
 
+    // Pull and rebase to main branch
+    execSync(`cd ${repoDir} && git pull --rebase origin main`);
+
     // Push to main branch
     execSync(`cd ${repoDir} && git push origin main`);
 
