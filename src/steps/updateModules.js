@@ -76,13 +76,13 @@ export async function updateModules(site, date) {
 
     // Skip if only go.sum changed
     const changedFiles = status.split('\n').map(line => line.trim().split(/\s+/).pop()).filter(f => f);
-    const meaningfulChanges = changedFiles.filter(file => file !== 'go.sum');
 
     if (changedFiles.length === 1 && changedFiles[0] === 'go.sum') {
       logger.warn(`⚠️ Only go.sum changed. Skipping.`);
       return { status: "unchanged", tmpPath, publicPath: null, hasChanges: false, changedFiles: [] };
     }
 
+    const meaningfulChanges = changedFiles.filter(file => file !== 'go.sum');
     logger.info(`✅ Meaningful changes: ${meaningfulChanges.join(', ')}`);
 
     // Verify Hugo module changes

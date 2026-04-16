@@ -2,7 +2,7 @@
 import { getOctokit } from '../utils/github.js';
 import { logger } from '../utils/logger.js';
 import { mergePullRequest } from './mergePullRequest.js';
-import { generateFullReport } from "../utils/markownGenerator.js";
+import { generateFullReport } from "../utils/markdownGenerator.js";
 
 /**
  * Creates a pull request on GitHub for Hugo module updates

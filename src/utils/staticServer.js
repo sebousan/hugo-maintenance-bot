@@ -30,6 +30,13 @@ export function createStaticServer(basePath) {
       filePath = path.join(filePath, 'index.html');
     }
 
+    // Prevent path traversal outside basePath
+    if (!path.resolve(filePath).startsWith(path.resolve(basePath))) {
+      res.writeHead(403);
+      res.end('Forbidden');
+      return;
+    }
+
     if (fs.existsSync(filePath)) {
       const ext = path.extname(filePath).substring(1);
       const contentType = contentTypeMap[ext] || 'text/plain';

@@ -1,7 +1,7 @@
 // steps/createContent.js
 import { writeFile } from "../utils/file.js";
 import { logger } from "../utils/logger.js";
-import { generateFullReport } from "../utils/markownGenerator.js";
+import { generateFullReport } from "../utils/markdownGenerator.js";
 
 /**
  * Creates content files with maintenance report
