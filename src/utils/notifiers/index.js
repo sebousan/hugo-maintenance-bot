@@ -1,17 +1,14 @@
 // utils/notifiers/index.js
 import { logger } from "../logger.js";
 import { notifyDiscord } from "./discord.js";
+import { notifySlack } from "./slack.js";
 
 // Registry of available notifiers, each activated by its env var
 const NOTIFIERS = [
-  {
-    name: "discord",
-    envVar: "DISCORD_WEBHOOK_URL",
-    fn: notifyDiscord
-  },
+  { name: "discord", envVar: "DISCORD_WEBHOOK_URL", fn: notifyDiscord },
+  { name: "slack",   envVar: "SLACK_WEBHOOK_URL",   fn: notifySlack   },
   // To add a new channel, register it here:
-  // { name: "slack",  envVar: "SLACK_WEBHOOK_URL",  fn: notifySlack  },
-  // { name: "email",  envVar: "SMTP_HOST",          fn: notifyEmail  },
+  // { name: "email", envVar: "SMTP_HOST", fn: notifyEmail },
 ];
 
 /**

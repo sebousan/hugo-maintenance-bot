@@ -88,7 +88,7 @@ export async function main(arg) {
       await cleanupTempDir(tmpPath, site.name);
 
       // 10. Notify
-      await notify({ siteName: site.name, date, status, prUrl, diffPages, updatedModules });
+      await notify({ siteName: site.name, date, status, prUrl, siteUrl: site.website.url, diffPages, updatedModules });
 
     } catch (err) {
       logger.error(`❌ Failed to process site ${site.name}: ${err.message}`);

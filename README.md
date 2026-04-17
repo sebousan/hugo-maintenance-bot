@@ -1,9 +1,8 @@
-<img width="1280" height="640" alt="Hugo Maintenance Bot" src="https://github.com/user-attachments/assets/869bcfde-5005-4347-82cd-ace81bf2700b" />
-
 # Hugo Maintenance Bot
 
-[![npm version](https://badge.fury.io/js/@sebousan%2Fhugo-maintenance-bot.svg)](https://www.npmjs.com/package/@sebousan/hugo-maintenance-bot)
+![Hugo Maintenance Bot](https://github.com/user-attachments/assets/869bcfde-5005-4347-82cd-ace81bf2700b)
 
+[![npm version](https://badge.fury.io/js/@sebousan%2Fhugo-maintenance-bot.svg)](https://www.npmjs.com/package/@sebousan/hugo-maintenance-bot)
 
 An automated maintenance bot for Hugo websites.
 
@@ -69,7 +68,6 @@ screenshots:
 | `GH_TOKEN` | ✅ | GitHub Personal Access Token (PR creation, branch management) |
 | `GIT_USER_EMAIL` | ✅ | Git user email for commits |
 | `GIT_USER_NAME` | ✅ | Git user name for commits |
-| `DISCORD_WEBHOOK_URL` | — | Discord webhook URL to enable Discord notifications |
 
 ## Notifications
 
@@ -78,7 +76,7 @@ Notifications are sent at the end of each site processing. A channel is automati
 | Channel | Environment variable | Status |
 | --- | --- | --- |
 | Discord | `DISCORD_WEBHOOK_URL` | ✅ Available |
-| Slack | `SLACK_WEBHOOK_URL` | Coming soon |
+| Slack | `SLACK_WEBHOOK_URL` | ✅ Available |
 | Email | `SMTP_HOST` | Coming soon |
 
 To get a Discord webhook URL: go to your Discord server settings → Integrations → Webhooks → New Webhook.
