@@ -7,16 +7,29 @@ import path from 'path';
 import os from 'os';
 
 /**
- * Execute yarn with retry logic
+ * Returns the install command for the given package manager
+ * @param {string} packageManager - 'yarn' | 'npm' | 'pnpm'
+ * @returns {string}
+ */
+function getInstallCommand(packageManager) {
+  if (packageManager === 'npm') return 'npm install';
+  if (packageManager === 'pnpm') return 'pnpm install';
+  return 'yarn install';
+}
+
+/**
+ * Execute package manager install with retry logic
  * @param {string} tmpPath - Temporary directory path
+ * @param {string} packageManager - Package manager to use ('yarn' | 'npm' | 'pnpm')
  * @param {number} maxRetries - Maximum retry attempts
  * @param {number} delayMs - Delay between retries in ms
  */
-async function yarnWithRetry(tmpPath, maxRetries = 3, delayMs = 5000) {
+async function installWithRetry(tmpPath, packageManager = 'yarn', maxRetries = 3, delayMs = 5000) {
+  const installCmd = getInstallCommand(packageManager);
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      logger.info(`📦 Installing Node.js dependencies (attempt ${attempt}/${maxRetries})...`);
-      execSync(`cd ${tmpPath} && yarn install`, { stdio: "inherit" });
+      logger.info(`📦 Installing Node.js dependencies with ${packageManager} (attempt ${attempt}/${maxRetries})...`);
+      execSync(`cd ${tmpPath} && ${installCmd}`, { stdio: "inherit" });
       logger.success(`✅ Dependencies installed successfully`);
       return true;
     } catch (err) {
@@ -98,9 +111,10 @@ export async function updateModules(site, date) {
     });
 
     // Install Node.js dependencies if necessary
+    const packageManager = site.packageManager || 'yarn';
     if (fs.existsSync(path.join(tmpPath, "package.json"))) {
       try {
-        await yarnWithRetry(tmpPath, 3, 5000);
+        await installWithRetry(tmpPath, packageManager, 3, 5000);
       } catch (err) {
         logger.warn(`⚠️ Failed to install dependencies after retries, continuing with build...`);
         logger.info(`💡 Dependencies may be cached or not critical for this build`);
