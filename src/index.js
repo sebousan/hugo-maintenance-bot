@@ -9,6 +9,7 @@ import { createPullRequest } from "./steps/createPullRequest.js";
 import { updateModules } from "./steps/updateModules.js";
 import { loadSites } from "./utils/websites.js";
 import { logger } from "./utils/logger.js";
+import { notify } from "./utils/notifiers/index.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -86,11 +87,8 @@ export async function main(arg) {
       logger.info("🔍 Delete temp directory...");
       await cleanupTempDir(tmpPath, site.name);
 
-      // remove notifications
-      continue;
-
       // 10. Notify
-      // TODO
+      await notify({ siteName: site.name, date, status, prUrl, diffPages, updatedModules });
 
     } catch (err) {
       logger.error(`❌ Failed to process site ${site.name}: ${err.message}`);

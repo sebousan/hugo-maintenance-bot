@@ -8,6 +8,7 @@ on:
 env:
   GIT_USER_EMAIL: "bot@domain.com"
   GIT_USER_NAME: "[Bot] Maintenance"
+  DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
 jobs:
   maintenance:

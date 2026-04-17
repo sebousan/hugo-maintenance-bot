@@ -13,15 +13,16 @@ It handles:
 - Taking screenshots (before/after)
 - Comparing screenshots
 - Creating Pull Requests with visual diffs
-- Merge automatically if there is no diffs
+- Merging automatically if there are no visual differences
 - Creating content markdown page (for your maintenance report website)
+- Sending notifications (Discord, Slack, email...)
 
 ## Installation
 
 ```bash
-npm install hugo-maintenance-bot
+npm install @sebousan/hugo-maintenance-bot
 # or
-yarn add hugo-maintenance-bot
+yarn add @sebousan/hugo-maintenance-bot
 ```
 
 ## Usage
@@ -63,9 +64,24 @@ screenshots:
 
 ## Environment Variables
 
-- `GH_TOKEN`: GitHub Personal Access Token (required for PR creation and cross-repo operations)
-- `GIT_USER_EMAIL`: Git user email (required for PR creation)
-- `GIT_USER_NAME`: Git user name (required for PR creation)
+| Variable | Required | Description |
+| --- | --- | --- |
+| `GH_TOKEN` | ✅ | GitHub Personal Access Token (PR creation, branch management) |
+| `GIT_USER_EMAIL` | ✅ | Git user email for commits |
+| `GIT_USER_NAME` | ✅ | Git user name for commits |
+| `DISCORD_WEBHOOK_URL` | — | Discord webhook URL to enable Discord notifications |
+
+## Notifications
+
+Notifications are sent at the end of each site processing. A channel is automatically activated when its environment variable is set — no configuration needed.
+
+| Channel | Environment variable | Status |
+| --- | --- | --- |
+| Discord | `DISCORD_WEBHOOK_URL` | ✅ Available |
+| Slack | `SLACK_WEBHOOK_URL` | Coming soon |
+| Email | `SMTP_HOST` | Coming soon |
+
+To get a Discord webhook URL: go to your Discord server settings → Integrations → Webhooks → New Webhook.
 
 ## GitHub Actions
 
