@@ -148,6 +148,7 @@ export function generateScreenshotsSection(pages, date, siteName) {
 /**
  * Generates the full report
  * @param {Object} params - Parameters
+ * @param {string} [params.locale] - Locale for date formatting (e.g. 'fr-FR')
  * @returns {string} Full Markdown content
  */
 
@@ -158,11 +159,12 @@ export function generateFullReport({
   updatedModules = [],
   prUrl,
   pages = [],
-  siteName
+  siteName,
+  locale = 'en-US'
 }) {
 
   let content = `
-${generateDateSection(date)}
+${generateDateSection(date, locale)}
 ${generateStatusSection(status, diffPages, date, siteName)}
 ${generateModulesSection(updatedModules)}
 `;

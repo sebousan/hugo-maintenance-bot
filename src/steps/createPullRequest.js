@@ -47,7 +47,8 @@ export async function createPullRequest(site, date, status, diffPages, updatedMo
       updatedModules,
       prUrl: false,
       pages,
-      siteName
+      siteName,
+      locale: site.locale
     });
 
     // Create PR

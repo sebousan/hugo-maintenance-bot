@@ -40,7 +40,8 @@ status: ${status}
       updatedModules,
       prUrl,
       pages,
-      siteName
+      siteName,
+      locale: site.locale
     });
 
     // Write the final file
