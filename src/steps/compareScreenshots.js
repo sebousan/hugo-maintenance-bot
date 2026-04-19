@@ -81,7 +81,7 @@ export async function compareScreenshots(site, date) {
           diffPages.add(page);
 
           // Save the difference image
-          const diffPath = path.join(compareDir, `${pageFileName}_${device}_diff.png`);
+          const diffPath = path.join(compareDir, `${pageFileName}_${device}.png`);
           fs.writeFileSync(diffPath, PNG.sync.write(diff));
           logger.info(`🖼️ Diff saved (${diffPercent.toFixed(2)}% different): ${diffPath}`);
         } else {

@@ -40,42 +40,32 @@ export async function createScreenshots(site, type, date, publicPath = null) {
         if (site.screenshots.includes(device)) {
           try {
             const fullUrl = publicPath ? `${baseUrl}${pageUrl}` : `${site.website.url}${pageUrl}`;
-            const page = await browser.newPage();
-            await page.setViewportSize(resolution);
+            const context = await browser.newContext({ viewport: resolution });
+            const page = await context.newPage();
 
-            // Disable animations/hover
+            // Block media downloads — visually hidden via CSS anyway
+            await page.route('**/*.{png,jpg,jpeg,gif,webp,svg,avif,mp4,webm,ogg}', route => route.abort());
+
+            await page.goto(fullUrl, { waitUntil: 'domcontentloaded', timeout: 15000 });
+            await page.waitForTimeout(500);
+
+            // Neutralize animations and media to avoid false positives in comparison
             await page.addStyleTag({
               content: `
-                [data-anim], * {
-                  opacity: 1 !important;
-                  transform: none !important;
+                * {
                   transition: none !important;
                   animation: none !important;
                 }
+                [data-anim] {
+                  opacity: 1 !important;
+                  transform: none !important;
+                }
                 a, button, [role="button"] { pointer-events: none !important; }
+                img, video, iframe, canvas {
+                  visibility: hidden !important;
+                }
               `
             });
-
-            await page.goto(fullUrl, { waitUntil: 'networkidle', timeout: 60000 });
-
-            // Scroll and return to top
-            await page.evaluate(async () => {
-              document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-                img.setAttribute('loading', 'eager');
-              });
-              await new Promise(resolve => {
-                const timer = setInterval(() => {
-                  window.scrollBy(0, 100);
-                  if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
-                    clearInterval(timer);
-                    window.scrollTo(0, 0);
-                    resolve();
-                  }
-                }, 100);
-              });
-            });
-
-            await page.waitForTimeout(1000);
 
             // Screenshot
             const basePath = path.join('static', 'images', 'screenshots', site.name, date, type);
@@ -84,7 +74,7 @@ export async function createScreenshots(site, type, date, publicPath = null) {
             const screenshotPath = path.join(basePath, `${pageFileName}_${device}.png`);
             await page.screenshot({ path: screenshotPath, fullPage: true });
             logger.success(`✅ Screenshot saved: ${screenshotPath}`);
-            await page.close();
+            await context.close();
           } catch (err) {
             logger.error(`❌ Failed to capture ${pageUrl} (${device}): ${err.message}`);
           }
